@@ -1,0 +1,45 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.0'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id "com.github.node-gradle.node" version "3.0.1"
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = 'com.availity'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '16'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+bootJar {
+    exclude ("**/app/**")
+}
+
+node {
+    version = '14.17.0'
+    download = true
+}
+
+task webpack(group: 'Build', type: NodeTask) {
+    outputs.dir('src/main/resources/static')
+    script = project.file("node_modules/webpack/bin/webpack.js")
+}
+
+webpack.dependsOn npmInstall
+processResources.dependsOn webpack

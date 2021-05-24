@@ -1,0 +1,7 @@
+"user1","first","last","1","insurance1"
+"user2",bob,"boberson","3",insurance1
+user2,bob,boberson,1,insurance1
+"""user2""",bob,boberson,2,insurance1
+user3,john,johnson,1,insurance2
+user4,"g""ale",galeson,3,insurance2
+user5,bale,galeson,3,insurance2
